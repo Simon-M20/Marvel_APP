@@ -1,17 +1,23 @@
+import { useContext } from "react";
 import MarvelLogo from "../Assets/marvel-studios-logo.png";
 import "../Assets/Styles/Header.css";
-import "boxicons";
+import MarvelContext from "../Context/GlobalContext";
 
 const Header = () => {
+    const { showMenu, setShowMenu } = useContext(MarvelContext);
+
     return (
         <header className='header'>
             <nav className='py-4'>
                 <ul className='flex items-center justify-between mx-auto w-4/5'>
                     <li className='cursor-pointer'>
-                        <box-icon
-                            name='menu-alt-left'
-                            animation='tada-hover'
-                            color='white'></box-icon>
+                        <button
+                            className='animate-tada'
+                            onClick={() => setShowMenu(!showMenu)}>
+                            <span className='material-symbols-outlined'>
+                                notes
+                            </span>
+                        </button>
                     </li>
                     <li>
                         <figure className='w-full flex justify-center items-center'>
@@ -23,7 +29,9 @@ const Header = () => {
                         </figure>
                     </li>
                     <li className='cursor-pointer'>
-                        <box-icon name='search-alt-2' color='white'></box-icon>
+                        <span className='material-symbols-outlined'>
+                            search
+                        </span>
                     </li>
                 </ul>
             </nav>
