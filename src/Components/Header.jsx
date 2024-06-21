@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import MarvelLogo from "../Assets/marvel-studios-logo.png";
+import MarvelLogo from "../Assets/marvel-studios-logo.webp";
 import "../Assets/Styles/Header.css";
 import MarvelContext from "../Context/GlobalContext";
 
@@ -9,7 +9,7 @@ const Header = () => {
     return (
         <header className='header'>
             <nav className='py-4'>
-                <ul className='flex items-center justify-between mx-auto w-4/5'>
+                <ul className='flex items-center justify-between mx-auto'>
                     <li className='cursor-pointer'>
                         <button
                             className='animate-tada'
