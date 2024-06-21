@@ -13,6 +13,45 @@
     z-index: 99;
 }
 
+.main-section {
+    border-radius: 8px;
+    transition: all 0.3s ease-in;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-clip: padding-box;
+    background-attachment: local;
+    background-origin: padding-box;
+    position: relative;
+}
+
+.main-section::before {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    opacity: 0.5;
+    z-index: 1;
+}
+
+.main-section > * {
+    position: relative;
+    z-index: 2;
+}
+
+.main-section.active {
+    transform: translateX(150px) translateY(0px) scale(0.7);
+}
+
 @media only screen and (min-width: 768px) {
     body {
         background-color: #222;
