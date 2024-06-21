@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import MarvelLogo from "../../Assets/marvel-studios-logo.png";
+import MarvelLogo from "../../Assets/marvel-studios-logo.webp";
 import "../../Assets/Styles/SideMenu.css";
 import MarvelContext from "../../Context/GlobalContext";
 
