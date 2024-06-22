@@ -14,7 +14,7 @@
 }
 
 .main-section {
-    border-radius: 8px;
+    /* border-radius: 8px; */
     transition: all 0.3s ease-in;
     height: 100vh;
     display: flex;
@@ -50,6 +50,7 @@
 
 .main-section.active {
     transform: translateX(150px) translateY(0px) scale(0.7);
+    border-radius: 8px;
 }
 
 @media only screen and (min-width: 768px) {
