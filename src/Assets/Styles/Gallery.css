@@ -1,0 +1,103 @@
+.gallery-container {
+    position: relative;
+    width: 100%;
+    padding: 20px 0;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.gallery {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    z-index: 1;
+    scrollbar-width: none;
+    flex: 0 0 33%;
+    position: relative;
+    padding-bottom: 8px;
+}
+
+.gallery::-webkit-scrollbar {
+    display: none;
+}
+
+.gallery-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* margin-right: 20px; */
+    padding: 0 8px;
+    z-index: 1;
+    flex: 0 0 33%;
+    justify-content: space-between;
+}
+
+.gallery-image {
+    width: 125px;
+    height: 125px;
+    object-fit: cover;
+    z-index: 1;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.gallery-image:hover {
+    transform: scale(0.9);
+}
+
+.image-title {
+    margin-top: 10px;
+    font-size: 16px;
+    z-index: 1;
+    color: #fff;
+}
+
+.button-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    z-index: 1;
+}
+
+.circle-button {
+    width: 20px;
+    height: 20px;
+    /* margin: 0 50px; */
+    border: 1px solid white;
+    background-color: #fff;
+    border-radius: 50%;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease-in;
+    z-index: 2 !important;
+}
+
+.circle-button.selected {
+    background-color: transparent;
+    box-shadow: 0 0 5px #fff;
+}
+
+.circle-button.selected::before {
+    content: "";
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    right: 4px;
+    bottom: 4px;
+    background-color: #fff;
+    border-radius: 50%;
+}
+
+.line {
+    position: absolute;
+    bottom: 37px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+
+    z-index: 0 !important;
+}
