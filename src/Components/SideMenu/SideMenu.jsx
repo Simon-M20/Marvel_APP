@@ -2,9 +2,12 @@ import { useContext } from "react";
 import MarvelLogo from "../../Assets/marvel-studios-logo.webp";
 import "../../Assets/Styles/SideMenu.css";
 import MarvelContext from "../../Context/GlobalContext";
+import List from "./List";
 
 const SideMenu = () => {
     const { showMenu, setShowMenu } = useContext(MarvelContext);
+
+    const menu = ["comics", "series", "events"];
 
     return (
         <aside className={`${showMenu ? "active" : ""} side_menu`}>
@@ -22,22 +25,9 @@ const SideMenu = () => {
                     </button>
                 </figcaption>
             </figure>
-            <div className='flex justify-end items-center mb-3 cursor-pointer side_menu-actions'>
-                <span className='text-3xl pr-1'>⍟</span>
-                <span>Home</span>
-            </div>
-            <div className='flex justify-end items-center mb-3 cursor-pointer side_menu-actions'>
-                <span className='text-3xl pr-1'>⍟</span>
-                <span>Characters</span>
-            </div>
-            <div className='flex justify-end items-center mb-3 cursor-pointer side_menu-actions'>
-                <span className='text-3xl pr-1'>⍟</span>
-                <span>Comics</span>
-            </div>
-            <div className='flex justify-end items-center mb-3 cursor-pointer side_menu-actions'>
-                <span className='text-3xl pr-1'>⍟</span>
-                <span>Movies</span>
-            </div>
+            {menu.map((title, index) => {
+                return <List key={index} title={title} />;
+            })}
         </aside>
     );
 };
