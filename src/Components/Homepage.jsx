@@ -4,10 +4,15 @@ import MainInfo from "./Character/MainInfo";
 import Header from "./Header";
 import Footer from "./Footer";
 import Gallery from "./Character/Gallery";
+import Loader from "./UI/Loader";
 
 const Homepage = () => {
-    const { showMenu, singleCharacter } = useContext(MarvelContext);
+    const { showMenu, singleCharacter, loading } = useContext(MarvelContext);
     let characterImg;
+
+    if (loading) {
+        return <Loader />;
+    }
 
     if (singleCharacter.thumbnail) {
         characterImg = `${singleCharacter.thumbnail.path}.${singleCharacter.thumbnail.extension}`;
@@ -18,9 +23,11 @@ const Homepage = () => {
             className={`${showMenu ? "active" : ""} relative px-4 main-section`}
             style={{ backgroundImage: `url(${characterImg})` }}>
             <Header />
-            <MainInfo />
-            <Gallery />
-            <Footer />
+            <section className='w-full '>
+                <MainInfo />
+                <Gallery />
+                <Footer />
+            </section>
         </section>
     );
 };
