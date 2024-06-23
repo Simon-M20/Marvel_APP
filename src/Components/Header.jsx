@@ -4,7 +4,8 @@ import "../Assets/Styles/Header.css";
 import MarvelContext from "../Context/GlobalContext";
 
 const Header = () => {
-    const { showMenu, setShowMenu } = useContext(MarvelContext);
+    const { showMenu, setShowMenu, setSearch, search } =
+        useContext(MarvelContext);
 
     return (
         <header className='header'>
@@ -29,9 +30,14 @@ const Header = () => {
                         </figure>
                     </li>
                     <li className='cursor-pointer'>
-                        <span className='material-symbols-outlined'>
-                            search
-                        </span>
+                        <button
+                            onClick={() => {
+                                setSearch(!search);
+                            }}>
+                            <span className='material-symbols-outlined'>
+                                search
+                            </span>
+                        </button>
                     </li>
                 </ul>
             </nav>
