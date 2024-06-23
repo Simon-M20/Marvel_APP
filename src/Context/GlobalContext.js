@@ -5,8 +5,10 @@ const MarvelContext = createContext();
 
 const MarvelProvider = ({ children }) => {
     const [showMenu, setShowMenu] = useState(false);
+    const [search, setSearch] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
+
     const [allCharacters, setAllCharacters] = useState([]);
     const [singleCharacter, setSingleCharacter] = useState([]);
 
@@ -43,6 +45,8 @@ const MarvelProvider = ({ children }) => {
         allCharacters,
         setSingleCharacter,
         getAllCharacters,
+        setSearch,
+        search,
     };
 
     return (
