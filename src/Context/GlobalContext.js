@@ -21,6 +21,7 @@ const MarvelProvider = ({ children }) => {
                 return character;
             });
             const results = await Promise.all(promises);
+            if (results.length <= 0) throw setError(true);
             setAllCharacters(results);
             if (results.length > 0) setSingleCharacter(results[0]);
         } catch (error) {
