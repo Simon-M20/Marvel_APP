@@ -2,6 +2,7 @@
     overflow: hidden;
     position: relative;
     background-color: transparent;
+    z-index: 2;
 }
 
 .animate-tada:hover {
