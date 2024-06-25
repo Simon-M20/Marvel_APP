@@ -36,26 +36,28 @@ function Gallery() {
         <section className='gallery-container'>
             <section className='gallery'>
                 {series.map((serie) => (
-                    <section key={serie.id} className='gallery-item'>
+                    <figure key={serie.id} className='gallery-item'>
                         <img
                             src={`${serie.thumbnail.path}.${serie.thumbnail.extension}`}
                             alt={serie.title}
                             className='gallery-image'
                             onClick={() => handleClick(serie.id)}
                         />
-                        <section className='image-title'>{serie.title}</section>
-                        <section className='button-wrapper'>
+                        <figcaption className='image-title'>
+                            {serie.title}
+                        </figcaption>
+                        <span className='button-wrapper'>
                             <button
                                 className={`circle-button ${
                                     selectedSerie === serie.id ? "selected" : ""
                                 }`}
                                 onClick={() => handleClick(serie.id)}
                             />
-                        </section>
-                    </section>
+                        </span>
+                    </figure>
                 ))}
             </section>
-            <section className='line'></section>
+            <span className='line'></span>
         </section>
     );
 }
