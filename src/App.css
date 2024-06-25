@@ -48,7 +48,7 @@
     z-index: 2;
 }
 
-.main-section.active {
+.active {
     transform: translateX(150px) translateY(0px) scale(0.7);
     border-radius: 8px;
 }
