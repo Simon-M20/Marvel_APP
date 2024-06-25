@@ -11,12 +11,12 @@ console.log(hash, ts);
 
 // let url = `http://gateway.marvel.com/v1/public/comics?ts=${ts}&apikey=${publicKey}&hash=${hash}`;
 
-export const searchCharacter = async (id) => {
+export const searchCharacter = async (name) => {
     try {
-        let url = `${baseUrl}/v1/public/characters/${id}?ts=${ts}&apikey=${publicKey}&hash=${hash}`;
+        let url = `${baseUrl}/v1/public/characters?name=${name}&ts=${ts}&apikey=${publicKey}&hash=${hash}`;
         const res = await fetch(url);
         const data = await res.json();
-        return data;
+        return data.data.results[0];
     } catch (err) {
         console.log(err);
     }
@@ -51,6 +51,7 @@ export const getCharacterSeries = async (id) => {
             let url = `${baseUrl}/v1/public/characters/${id}/series?ts=${ts}&apikey=${publicKey}&hash=${hash}`;
             const res = await fetch(url);
             const data = await res.json();
+            console.log(data);
             return data.data;
         }
     } catch (error) {
