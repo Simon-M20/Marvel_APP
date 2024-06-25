@@ -13,7 +13,7 @@ const MainInfo = () => {
             </h1>
             {singleCharacter.series && (
                 <h2 className='seasons text-lg font-thin'>
-                    {singleCharacter.series.available} Seasons
+                    {singleCharacter.series.available} Series
                 </h2>
             )}
             <span className='w-10 bg-white mt-1 mb-4 py-0.5 block'></span>
