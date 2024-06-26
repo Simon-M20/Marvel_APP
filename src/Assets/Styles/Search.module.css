@@ -1,5 +1,5 @@
 .search__container {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     height: 100vh;
@@ -13,8 +13,9 @@
     color: #fff;
     padding: 12px;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: flex-start;
+    flex-direction: column;
 }
 
 .search__form {
