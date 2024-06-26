@@ -45,13 +45,29 @@ export const getCharacterData = async (id) => {
     }
 };
 
-export const getCharacterSeries = async (id) => {
+// export const getCharacterSeries = async (id) => {
+//     try {
+//         if (id) {
+//             let url = `${baseUrl}/v1/public/characters/${id}/series?ts=${ts}&apikey=${publicKey}&hash=${hash}`;
+//             const res = await fetch(url);
+//             const data = await res.json();
+//             console.log(data);
+//             return data.data;
+//         }
+//     } catch (error) {
+//         console.log(error);
+//     }
+// };
+
+export const getCharacterSeries = async (id, page = 0) => {
     try {
         if (id) {
-            let url = `${baseUrl}/v1/public/characters/${id}/series?ts=${ts}&apikey=${publicKey}&hash=${hash}`;
+            const limit = 20; // The number of results per page
+            const offset = page * limit; // Calculate the offset based on the page number
+            let url = `${baseUrl}/v1/public/characters/${id}/series?ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=${limit}&offset=${offset}`;
             const res = await fetch(url);
             const data = await res.json();
-            console.log(data);
+            // console.log(data);
             return data.data;
         }
     } catch (error) {
