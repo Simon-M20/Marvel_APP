@@ -6,37 +6,40 @@ import Footer from "./Footer";
 import Gallery from "./Character/Gallery";
 import Loader from "./UI/Loader";
 import SearchBar from "./UI/SearchBar";
+import Error404 from "./UI/Error";
 
 const Homepage = () => {
-    const { showMenu, singleCharacter, loading, search } =
+    const { showMenu, singleCharacter, loading, search, error } =
         useContext(MarvelContext);
     let characterImg;
 
-    if (loading) {
-        return <Loader />;
-    }
+    if (loading) return <Loader />;
+
+    if (error || singleCharacter === undefined) return <Error404 />;
+
+    if (search) return <SearchBar />;
 
     if (singleCharacter.thumbnail) {
         characterImg = `${singleCharacter.thumbnail.path}.${singleCharacter.thumbnail.extension}`;
     }
 
-    // if (search) <SearchBar />;
-
     return (
-        <section
-            className={`${showMenu ? "active" : ""} relative px-4 main-section`}
-            style={{ backgroundImage: `url(${characterImg})` }}>
-            <Header />
-            {search ? (
-                <SearchBar />
-            ) : (
-                <section className='w-full '>
-                    <MainInfo />
-                    <Gallery />
-                    <Footer />
+        <>
+            {singleCharacter !== undefined && (
+                <section
+                    className={`${
+                        showMenu ? "active" : ""
+                    } relative px-4 main-section`}
+                    style={{ backgroundImage: `url(${characterImg})` }}>
+                    <Header />
+                    <section className='w-full '>
+                        <MainInfo />
+                        <Gallery />
+                        <Footer />
+                    </section>
                 </section>
             )}
-        </section>
+        </>
     );
 };
 
