@@ -13,10 +13,12 @@ console.log(hash, ts);
 
 export const searchCharacter = async (name) => {
     try {
-        let url = `${baseUrl}/v1/public/characters?name=${name}&ts=${ts}&apikey=${publicKey}&hash=${hash}`;
+        let url = `${baseUrl}/v1/public/characters?nameStartsWith=${name}&ts=${ts}&apikey=${publicKey}&hash=${hash}`;
+
         const res = await fetch(url);
         const data = await res.json();
-        return data.data.results[0];
+        // console.log(data.data.results);
+        return data.data.results;
     } catch (err) {
         console.log(err);
     }
@@ -45,25 +47,11 @@ export const getCharacterData = async (id) => {
     }
 };
 
-// export const getCharacterSeries = async (id) => {
-//     try {
-//         if (id) {
-//             let url = `${baseUrl}/v1/public/characters/${id}/series?ts=${ts}&apikey=${publicKey}&hash=${hash}`;
-//             const res = await fetch(url);
-//             const data = await res.json();
-//             console.log(data);
-//             return data.data;
-//         }
-//     } catch (error) {
-//         console.log(error);
-//     }
-// };
-
 export const getCharacterSeries = async (id, page = 0) => {
     try {
         if (id) {
-            const limit = 20; // The number of results per page
-            const offset = page * limit; // Calculate the offset based on the page number
+            const limit = 20;
+            const offset = page * limit;
             let url = `${baseUrl}/v1/public/characters/${id}/series?ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=${limit}&offset=${offset}`;
             const res = await fetch(url);
             const data = await res.json();
