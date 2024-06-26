@@ -73,7 +73,7 @@ function Gallery() {
         };
     }, [loadMoreSeries]);
 
-    console.log(loading);
+    // console.log(loading);
 
     return (
         <section className='gallery-container'>
@@ -120,15 +120,6 @@ function Gallery() {
                                 "#a00103",
                             ]}
                         />
-                        {/* <Audio
-                            height='80'
-                            width='80'
-                            radius='9'
-                            color='green'
-                            ariaLabel='loading'
-                            wrapperStyle
-                            wrapperClass
-                        /> */}
                     </span>
                 )}
             </section>
