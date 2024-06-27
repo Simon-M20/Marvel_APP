@@ -27,6 +27,10 @@
     color: #000;
 }
 
+.search__scroll::-webkit-scrollbar {
+    display: none;
+}
+
 .search__input {
     padding: 5px 15px 5px 30px;
     border-radius: 8px;
