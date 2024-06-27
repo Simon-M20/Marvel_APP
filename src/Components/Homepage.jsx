@@ -15,7 +15,8 @@ const Homepage = () => {
 
     if (loading) return <Loader />;
 
-    if (error || singleCharacter === undefined) return <Error404 />;
+    if (error || singleCharacter === undefined || singleCharacter.length <= 0)
+        return <Error404 />;
 
     if (search) return <SearchBar />;
 
