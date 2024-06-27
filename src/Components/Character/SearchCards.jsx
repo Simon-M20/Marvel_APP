@@ -1,10 +1,10 @@
-import { useState } from "react";
+// import { useState } from "react";
 
 function SearchCards({ name, img, id, onSelect }) {
-    const [selectedCard, setSelectedCard] = useState(null);
+    // const [selectedCard, setSelectedCard] = useState(null);
 
     const handleClick = (id) => {
-        setSelectedCard(id);
+        // setSelectedCard(id);
         onSelect();
     };
 
@@ -20,15 +20,19 @@ function SearchCards({ name, img, id, onSelect }) {
                     className='gallery-image'
                     onClick={() => handleClick(id)}
                 />
-                <figcaption className='image-title'>{name}</figcaption>
-                <span className='button-wrapper'>
+                <figcaption
+                    className='image-title cursor-pointer'
+                    onClick={() => handleClick(id)}>
+                    {name}
+                </figcaption>
+                {/* <span className='button-wrapper'>
                     <button
                         className={`circle-button ${
                             selectedCard === id ? "selected" : ""
                         }`}
                         onClick={() => handleClick(id)}
                     />
-                </span>
+                </span> */}
             </figure>
         </section>
     );
