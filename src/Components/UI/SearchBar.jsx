@@ -4,11 +4,23 @@ import MarvelContext from "../../Context/GlobalContext";
 import styles from "../../Assets/Styles/Search.module.css";
 import { searchCharacter } from "../../Utils/FetchApi";
 
+import { ColorRing } from "react-loader-spinner";
+import SearchCards from "../Character/SearchCards";
+
 function SearchBar() {
-    const { setSearch, search, setSingleCharacter, setError, setLoading } =
+    const { setSearch, search, setSingleCharacter, setError } =
         useContext(MarvelContext);
 
     const [character, setCharacter] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [searchResults, setSearchResults] = useState([]);
+
+    // useEffect(() => {
+    //     if (!search) {
+    //         setCharacter(""); // Clear the character input when the search is closed
+    //         setSearchResults([]); // Clear search results
+    //     }
+    // }, [search]);
 
     function capitalizeFirstLetter(string) {
         if (!string) return string;
@@ -30,19 +42,24 @@ function SearchBar() {
             const data = await searchCharacter(
                 capitalizeFirstLetter(character)
             );
-            // console.log(data, "DATA FROM THE SEARCH");
-            // console.log(character, "CHARACTER FROM THE SEARCH");
-            if (data === undefined) {
-                setError(true);
+            if (!data || data.length === 0) {
+                throw new Error(`No results found for ${character}`);
             }
-            setSingleCharacter(data);
+
+            setSearchResults(data);
+            setError(false);
         } catch (error) {
+            setSearch(false);
+            setSingleCharacter([]);
             setError(true);
         } finally {
-            setSearch(false);
             setLoading(false);
-            setError(false);
         }
+    };
+
+    const handleSelectCharacter = (character) => {
+        setSingleCharacter(character);
+        setSearch(false);
     };
 
     return (
@@ -58,6 +75,7 @@ function SearchBar() {
                                 type='search'
                                 name='character'
                                 id='character'
+                                value={character ? character : ""}
                                 autoComplete='off'
                                 onChange={(e) => setCharacter(e.target.value)}
                                 placeholder='Search Character'
@@ -71,12 +89,46 @@ function SearchBar() {
                             className='cursor-pointer w-10 pt-1'
                             onClick={() => {
                                 setSearch(!search);
-                                console.log(search);
                             }}>
                             <span className='material-symbols-outlined'>
                                 close
                             </span>
                         </button>
+                    </section>
+                    {loading && (
+                        <span
+                            className='w-full flex items-center justify-center'
+                            style={{ maxHeight: "125px" }}>
+                            <ColorRing
+                                visible={true}
+                                height='80'
+                                width='80'
+                                ariaLabel='color-ring-loading'
+                                wrapperStyle={{}}
+                                wrapperClass='color-ring-wrapper'
+                                colors={[
+                                    "#3e0007",
+                                    "#560007",
+                                    "#6e0006",
+                                    "#870006",
+                                    "#a00103",
+                                ]}
+                            />
+                        </span>
+                    )}
+                    <section
+                        className={`flex items-center justify-evenly mt-6 flex-wrap w-full overflow-y-scroll ${styles.search__scroll}`}>
+                        {searchResults.map((res, index) => {
+                            return (
+                                <SearchCards
+                                    key={`${res.id}-${index}`}
+                                    name={res.name}
+                                    img={res.thumbnail}
+                                    id={res.id}
+                                    onSelect={() => handleSelectCharacter(res)}
+                                />
+                            );
+                        })}
                     </section>
                 </section>
             )}
