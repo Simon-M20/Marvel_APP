@@ -117,7 +117,7 @@ function SearchBar() {
                         </span>
                     )}
                     <section
-                        className={`flex items-center justify-evenly mt-6 flex-wrap w-full overflow-y-scroll ${styles.search__scroll}`}>
+                        className={`flex items-center justify-evenly mt-4 flex-wrap w-full overflow-y-scroll ${styles.search__scroll}`}>
                         {searchResults.map((res, index) => {
                             return (
                                 <SearchCards
