@@ -7,6 +7,15 @@
 
 .animate-tada:hover {
     animation: tada 1.5s ease 2;
+    color: #ff0000;
+}
+
+.searchButton {
+    transition: all 0.3s ease-in;
+}
+
+.searchButton:hover {
+    color: #ff0000;
 }
 
 @keyframes tada {
