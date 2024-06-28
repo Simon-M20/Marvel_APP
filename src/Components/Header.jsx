@@ -29,7 +29,7 @@ const Header = () => {
                             />
                         </figure>
                     </li>
-                    <li className='cursor-pointer'>
+                    <li className='cursor-pointer searchButton'>
                         <button
                             onClick={() => {
                                 setSearch(!search);
