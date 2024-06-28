@@ -66,7 +66,8 @@ function SearchBar() {
         <>
             {search && (
                 <section className={styles.search__container}>
-                    <section className='w-full flex items-center justify-center'>
+                    <section
+                        className={`w-full flex items-center justify-center ${styles.search__section}`}>
                         <form
                             className={styles.search__form}
                             onSubmit={handleSubmit}>
