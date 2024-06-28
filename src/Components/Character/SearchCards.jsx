@@ -1,10 +1,6 @@
-// import { useState } from "react";
 import styles from "../../Assets/Styles/SearchCards.module.css";
 function SearchCards({ name, img, id, onSelect }) {
-    // const [selectedCard, setSelectedCard] = useState(null);
-
     const handleClick = (id) => {
-        // setSelectedCard(id);
         onSelect();
     };
 
@@ -26,14 +22,6 @@ function SearchCards({ name, img, id, onSelect }) {
                     onClick={() => handleClick(id)}>
                     {name}
                 </figcaption>
-                {/* <span className='button-wrapper'>
-                    <button
-                        className={`circle-button ${
-                            selectedCard === id ? "selected" : ""
-                        }`}
-                        onClick={() => handleClick(id)}
-                    />
-                </span> */}
             </figure>
         </section>
     );
