@@ -8,7 +8,7 @@ const Header = () => {
         useContext(MarvelContext);
 
     return (
-        <header className='header'>
+        <header className='header px-4'>
             <nav className='py-4'>
                 <ul className='flex items-center justify-between mx-auto'>
                     <li className='cursor-pointer'>
