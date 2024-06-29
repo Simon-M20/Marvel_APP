@@ -76,7 +76,7 @@ function Gallery() {
     // console.log(loading);
 
     return (
-        <section className='gallery-container'>
+        <section className='gallery-container px-4'>
             <section className='gallery' ref={galleryRef}>
                 {series.map((serie, index) => (
                     <figure
