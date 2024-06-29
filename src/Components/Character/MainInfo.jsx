@@ -6,6 +6,8 @@ import MarvelContext from "../../Context/GlobalContext";
 const MainInfo = () => {
     const { singleCharacter } = useContext(MarvelContext);
 
+    console.log(singleCharacter);
+
     const handleSpeak = () => {
         if (singleCharacter.description) {
             const name = new SpeechSynthesisUtterance(singleCharacter.name);
@@ -22,7 +24,7 @@ const MainInfo = () => {
     };
 
     return (
-        <section className='text-white text-left title-section w-full'>
+        <section className='text-white px-4 text-left title-section w-full'>
             <h1 className='text-2xl font-extrabold font-mono uppercase title'>
                 {singleCharacter.name}
             </h1>
