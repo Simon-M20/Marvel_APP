@@ -1,5 +1,4 @@
 .side_menu {
-    /* background-color: white; */
     position: absolute;
     top: 50px;
     left: 25px;
@@ -7,8 +6,6 @@
     justify-content: flex-start;
     align-items: flex-start;
     flex-direction: column;
-    /* opacity: 0;
-    visibility: hidden; */
     transform: translateX(-100%);
     transition: all 0.5s ease-in;
 }
