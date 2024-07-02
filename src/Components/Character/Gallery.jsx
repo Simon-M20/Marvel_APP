@@ -1,54 +1,115 @@
 import { useContext, useEffect, useState, useRef, useCallback } from "react";
 import "../../Assets/Styles/Gallery.css";
 import MarvelContext from "../../Context/GlobalContext";
-import { getCharacterSeries } from "../../Utils/FetchApi";
+import { getCharacterInfo } from "../../Utils/FetchApi";
 import { ColorRing } from "react-loader-spinner";
 
+import notAvailable from "../../Assets/image_not_available.webp";
+
 function Gallery() {
-    const [selectedSerie, setSelectedSerie] = useState(null);
-    const [series, setSeries] = useState([]);
+    const [selectedResult, setSelectedResult] = useState(null);
+    const [results, setResults] = useState([]);
     const [page, setPage] = useState(0);
     const [loading, setLoading] = useState(false);
-    const { singleCharacter, setError } = useContext(MarvelContext);
+
+    const { singleCharacter, setError, menuOption } = useContext(MarvelContext);
+
     const galleryRef = useRef(null);
+    const prevCharacterId = useRef(singleCharacter.id);
+    const prevMenuOption = useRef(menuOption);
 
     const handleClick = (id) => {
-        setSelectedSerie(id);
+        setSelectedResult(id);
     };
 
-    const loadMoreSeries = useCallback(async () => {
+    const loadMore = useCallback(async () => {
         if (loading) return;
         setLoading(true);
         try {
-            const data = await getCharacterSeries(singleCharacter.id, page);
-            setSeries((prevSeries) => [...prevSeries, ...data.results]);
+            const data = await getCharacterInfo(
+                singleCharacter.id,
+                page,
+                menuOption
+            );
+            setResults((prevInfo) => [...prevInfo, ...data.results]);
             setPage((prevPage) => prevPage + 1);
         } catch (error) {
             setError(true);
         } finally {
             setLoading(false);
         }
-    }, [loading, singleCharacter.id, page, setError]);
+    }, [loading, singleCharacter.id, page, setError, menuOption]);
 
-    useEffect(() => {
-        const getSeries = async () => {
-            setLoading(true);
-            try {
-                const data = await getCharacterSeries(singleCharacter.id, 0);
-                setSeries(data.results);
-                setSelectedSerie(data.results[0]?.id);
-                setPage(1);
-            } catch (error) {
-                setError(true);
-            } finally {
-                setLoading(false);
-            }
-        };
+    // useEffect(() => {
+    //     const getInfo = async () => {
+    //         setResults([]);
+    //         setLoading(true);
+    //         try {
+    //             const data = await getCharacterInfo(
+    //                 singleCharacter.id,
+    //                 0,
+    //                 menuOption
+    //             );
+    //             setResults(data.results);
+    //             setSelectedResult(data.results[0]?.id);
+    //             setPage(1);
+    //         } catch (error) {
+    //             setError(true);
+    //         } finally {
+    //             setLoading(false);
+    //         }
+    //     };
 
-        if (singleCharacter.id) {
-            getSeries();
+    //     if (
+    //         singleCharacter.id &&
+    //         (singleCharacter.id !== prevCharacterId.current ||
+    //             menuOption !== prevMenuOption.current)
+    //     ) {
+    //         getInfo();
+    //         prevCharacterId.current = singleCharacter.id;
+    //         prevMenuOption.current = menuOption;
+    //     }
+    // }, [singleCharacter.id, setError, menuOption]);
+
+    const getInfo = useCallback(async () => {
+        setResults([]);
+
+        setLoading(true);
+        try {
+            const data = await getCharacterInfo(
+                singleCharacter.id,
+                0,
+                menuOption
+            );
+            setResults(data.results);
+            setSelectedResult(data.results[0]?.id);
+            setPage(1);
+        } catch (error) {
+            setError(true);
+        } finally {
+            setLoading(false);
         }
-    }, [singleCharacter.id, setError]);
+    }, [singleCharacter.id, menuOption, setError]);
+
+    // Initial fetch
+    useEffect(() => {
+        if (singleCharacter.id) {
+            getInfo();
+        }
+    }, [singleCharacter.id, getInfo]);
+
+    // Subsequent updates
+    useEffect(() => {
+        if (
+            singleCharacter.id &&
+            (singleCharacter.id !== prevCharacterId.current ||
+                menuOption !== prevMenuOption.current)
+        ) {
+            getInfo();
+            prevCharacterId.current = singleCharacter.id;
+            prevMenuOption.current = menuOption;
+        }
+    }, [singleCharacter.id, menuOption, getInfo]);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -57,7 +118,7 @@ function Gallery() {
                 gallery.scrollLeft + gallery.clientWidth >=
                 gallery.scrollWidth - 200
             ) {
-                loadMoreSeries();
+                loadMore();
             }
         };
 
@@ -71,36 +132,46 @@ function Gallery() {
                 gallery.removeEventListener("scroll", handleScroll);
             }
         };
-    }, [loadMoreSeries]);
-
-    // console.log(loading);
+    }, [loadMore]);
 
     return (
         <section className='gallery-container px-4'>
             <section className='gallery' ref={galleryRef}>
-                {series.map((serie, index) => (
-                    <figure
-                        key={`${serie.id}-${index}`}
-                        className='gallery-item'>
-                        <img
-                            src={`${serie.thumbnail.path}.${serie.thumbnail.extension}`}
-                            alt={serie.title}
-                            className='gallery-image'
-                            onClick={() => handleClick(serie.id)}
-                        />
-                        <figcaption className='image-title'>
-                            {serie.title}
-                        </figcaption>
-                        <span className='button-wrapper'>
-                            <button
-                                className={`circle-button ${
-                                    selectedSerie === serie.id ? "selected" : ""
-                                }`}
-                                onClick={() => handleClick(serie.id)}
-                            />
-                        </span>
-                    </figure>
-                ))}
+                {results.length > 0 &&
+                    results.map((serie, index) => (
+                        <figure
+                            key={`${serie.id}-${index}`}
+                            className='gallery-item'>
+                            {serie.thumbnail ? (
+                                <img
+                                    src={`${serie.thumbnail.path}.${serie.thumbnail.extension}`}
+                                    alt={serie.title}
+                                    className='gallery-image'
+                                    onClick={() => handleClick(serie.id)}
+                                />
+                            ) : (
+                                <img
+                                    src={notAvailable}
+                                    alt={serie.title}
+                                    className='gallery-image'
+                                    onClick={() => handleClick(serie.id)}
+                                />
+                            )}
+                            <figcaption className='image-title'>
+                                {serie.title}
+                            </figcaption>
+                            <span className='button-wrapper'>
+                                <button
+                                    className={`circle-button ${
+                                        selectedResult === serie.id
+                                            ? "selected"
+                                            : ""
+                                    }`}
+                                    onClick={() => handleClick(serie.id)}
+                                />
+                            </span>
+                        </figure>
+                    ))}
                 {loading && (
                     <span
                         className='w-full flex items-center justify-center'
@@ -115,9 +186,9 @@ function Gallery() {
                             colors={[
                                 "#3e0007",
                                 "#560007",
-                                "#6e0006",
-                                "#870006",
-                                "#a00103",
+                                "#e62429",
+                                "#ff0000",
+                                "#222222",
                             ]}
                         />
                     </span>
