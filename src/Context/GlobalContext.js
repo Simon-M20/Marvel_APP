@@ -12,6 +12,10 @@ const MarvelProvider = ({ children }) => {
     const [allCharacters, setAllCharacters] = useState([]);
     const [singleCharacter, setSingleCharacter] = useState([]);
 
+    const [menuOption, setMenuOption] = useState("series");
+
+    const [searchedCharacter, setSearchedCharacter] = useState("");
+
     const getAllCharacters = async () => {
         setLoading(true);
 
@@ -48,6 +52,10 @@ const MarvelProvider = ({ children }) => {
         getAllCharacters,
         setSearch,
         search,
+        setMenuOption,
+        menuOption,
+        setSearchedCharacter,
+        searchedCharacter,
     };
 
     return (
