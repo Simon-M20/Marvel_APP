@@ -7,10 +7,15 @@ import Gallery from "./Character/Gallery";
 import Loader from "./UI/Loader";
 import SearchBar from "./UI/SearchBar";
 import Error404 from "./UI/Error";
+import { useState } from "react";
+import Details from "./Character/Details";
 
 const Homepage = () => {
     const { showMenu, singleCharacter, loading, search, error } =
         useContext(MarvelContext);
+
+    const [details, setDetails] = useState(false);
+
     let characterImg;
 
     if (loading) return <Loader />;
@@ -30,13 +35,20 @@ const Homepage = () => {
                 <section
                     className={`${
                         showMenu ? "active" : ""
-                    } relative px-4 main-section`}
+                    } relative main-section`}
                     style={{ backgroundImage: `url(${characterImg})` }}>
                     <Header />
                     <section className='w-full '>
-                        <MainInfo />
-                        <Gallery />
-                        <Footer />
+                        {details ? (
+                            <Details />
+                        ) : (
+                            <>
+                                <MainInfo details={details} />
+                                <Gallery />
+                            </>
+                        )}
+
+                        <Footer details={details} setDetails={setDetails} />
                     </section>
                 </section>
             )}
