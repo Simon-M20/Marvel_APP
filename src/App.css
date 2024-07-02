@@ -70,6 +70,7 @@
 .active {
     transform: translateX(150px) translateY(0px) scale(0.7);
     border-radius: 8px;
+    pointer-events: none;
 }
 
 @media only screen and (min-width: 768px) {
@@ -95,3 +96,9 @@
     background-size: cover;
     background-image: url("https://www.themoviedb.org/t/p/original/8QmaBWJVxC4NYUGl6z95MSDtLgb.jpg");
 } */
+
+.footerBg {
+    background-color: #222222;
+    border-top: 1px solid #e62429;
+    padding-top: 16px;
+}

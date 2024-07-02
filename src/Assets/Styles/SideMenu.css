@@ -13,6 +13,7 @@
 .side_menu.active {
     transform: translateX(0);
     z-index: 99;
+    pointer-events: all;
 }
 
 .side_menu-actions {
