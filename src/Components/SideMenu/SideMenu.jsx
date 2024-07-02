@@ -7,7 +7,7 @@ import List from "./List";
 const SideMenu = () => {
     const { showMenu, setShowMenu } = useContext(MarvelContext);
 
-    const menu = ["comics", "series", "events"];
+    const menu = ["series", "comics", "events", "stories"];
 
     return (
         <aside className={`${showMenu ? "active" : ""} side_menu`}>
@@ -25,9 +25,11 @@ const SideMenu = () => {
                     </button>
                 </figcaption>
             </figure>
-            {menu.map((title, index) => {
-                return <List key={index} title={title} />;
-            })}
+            <ul>
+                {menu.map((title, index) => {
+                    return <List key={index} title={title} />;
+                })}
+            </ul>
         </aside>
     );
 };
