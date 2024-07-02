@@ -7,9 +7,6 @@ let publicKey = "8f7ecc878fe2a5fd991a1678ad727b53";
 let privateKey = "e6c8194d027e43f883bdb351a72353e357d03a9a";
 
 let hash = CryptoJS.MD5(ts + privateKey + publicKey).toString();
-console.log(hash, ts);
-
-// let url = `http://gateway.marvel.com/v1/public/comics?ts=${ts}&apikey=${publicKey}&hash=${hash}`;
 
 export const searchCharacter = async (name) => {
     try {
@@ -35,42 +32,16 @@ export const getCharacters = async () => {
     }
 };
 
-export const getStories = async (id, page = 0) => {
-    try {
-        console.log(id);
-        // let url = `${baseUrl}/v1/public/stories/${id}?ts=${ts}&apikey=${publicKey}&hash=${hash}`;
-        const limit = 20;
-        const offset = page * limit;
-        let url = `${baseUrl}/v1/public/stories/${id}?ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=${limit}&offset=${offset}`;
-        const res = await fetch(url);
-        const data = await res.json();
-        return data;
-    } catch (err) {
-        console.log(err);
-    }
-};
-
-export const getCharacterSeries = async (id, page = 0) => {
+export const getCharacterInfo = async (id, page = 0, menuOption) => {
     try {
         if (id) {
             const limit = 20;
             const offset = page * limit;
-            let url = `${baseUrl}/v1/public/characters/${id}/series?ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=${limit}&offset=${offset}`;
+            let url = `${baseUrl}/v1/public/characters/${id}/${menuOption}?ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=${limit}&offset=${offset}`;
             const res = await fetch(url);
             const data = await res.json();
-            // console.log(data);
             return data.data;
         }
-    } catch (error) {
-        console.log(error);
-    }
-};
-
-export const getCharacterComics = async (character) => {
-    try {
-        const res = await fetch(`${baseUrl}/${character}/encounters`);
-        const data = await res.json();
-        return data;
     } catch (error) {
         console.log(error);
     }
