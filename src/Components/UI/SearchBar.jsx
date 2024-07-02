@@ -6,10 +6,16 @@ import { searchCharacter } from "../../Utils/FetchApi";
 
 import { ColorRing } from "react-loader-spinner";
 import SearchCards from "../Character/SearchCards";
+// import Error404 from "./Error";
 
 function SearchBar() {
-    const { setSearch, search, setSingleCharacter, setError } =
-        useContext(MarvelContext);
+    const {
+        setSearch,
+        search,
+        setSingleCharacter,
+        setError,
+        setSearchedCharacter,
+    } = useContext(MarvelContext);
 
     const [character, setCharacter] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -50,6 +56,7 @@ function SearchBar() {
             setError(false);
         } catch (error) {
             setSearch(false);
+            setSearchedCharacter(character);
             setSingleCharacter([]);
             setError(true);
         } finally {
