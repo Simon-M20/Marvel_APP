@@ -1,9 +1,16 @@
+import { useContext } from "react";
+import MarvelContext from "../../Context/GlobalContext";
+
 function List({ title }) {
+    const { setMenuOption } = useContext(MarvelContext);
+
     return (
-        <div className='flex justify-end items-center mb-3 cursor-pointer side_menu-actions'>
+        <li className='flex justify-start items-center mb-3 cursor-pointer side_menu-actions'>
             <span className='text-3xl pr-1'>⍟</span>
-            <span className='capitalize'>{title}</span>
-        </div>
+            <button onClick={() => setMenuOption(title)} className='capitalize'>
+                {title}
+            </button>
+        </li>
     );
 }
 
